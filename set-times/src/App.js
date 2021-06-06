@@ -1,7 +1,30 @@
+import React , {useState} from 'react';
 import './App.css';
 import {Row, Col, Button, Form, Card} from 'react-bootstrap';
+import SearchCoordinates from './components/searchCoordinates';
 
 function App() {
+
+//state for results and updates state
+const [results, setResults] = useState([]);
+const lat = 36.7201600;
+const long = -4.4203400;
+
+const search = async (e) => {
+  e.preventDefault();
+  //API
+  const api = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${long}`
+  //fetching api throw error if error in search
+  try {
+    const result = await fetch(api);
+    const data = await result.json();
+    setResults(data.Search);
+  } catch(err) {
+    console.error(err)
+  }
+}
+
+
   return (
     <>
     <Row>
@@ -42,12 +65,15 @@ function App() {
             </Col>
 
             <Col>
-                <Button>Check Coordinates</Button>
+                <Button onSubmit={search}>Check Coordinates</Button>
             </Col>
     </Row>
     <Row>
       <Card>
         <h1>Search Results</h1>
+        <SearchCoordinates
+        results={results}
+        />
       </Card>
     </Row>
     </>
