@@ -1,23 +1,24 @@
-import React from 'react';
-import {Card} from 'react-bootstrap';
+import React from "react";
+import { Card } from "react-bootstrap";
 
 const SetTimes = (props) => {
-    const results = props.results;
 
-    return (
-        <>
+  return (
+    <>
+      {props.results.map((setTimes) =>
+      
+        (
         <Card>
-            <div>
-                <h2>
-                    {results.sunrise}
-                </h2>
-                <h2>
-                    {results.sunset}
-                </h2>
-            </div>
+          <div>
+            <h3>{setTimes[0]}</h3>
+            <h3>{setTimes[1]}</h3>
+          </div>
         </Card>
-        </>
-    )
-}
+      ))}
+      
+    </>
+    
+  );
+};
 
 export default SetTimes;
